@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../src/generated/prisma"
@@ -10,4 +5,210 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+}
+
+model Alianca {
+  id_alianca  String       @id @db.Uuid
+  id_campanha String       @db.Uuid
+  nome        String       @db.VarChar(100)
+  descricao   String?
+  Campanha    Campanha     @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+  Personagem  Personagem[]
+}
+
+model CalendarioEvento {
+  id_evento      String           @id @db.Uuid
+  id_campanha    String           @db.Uuid
+  titulo         String           @db.VarChar(100)
+  dt_evento      DateTime         @db.Timestamp(6)
+  dt_criacao     DateTime         @default(now()) @db.Timestamp(6)
+  Campanha       Campanha         @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+  CalendarioRsvp CalendarioRsvp[]
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model CalendarioRsvp {
+  id_rsvp          String           @id @db.Uuid
+  id_evento        String           @db.Uuid
+  id_usuario       String           @db.Uuid
+  status           String           @default("pendente") @db.VarChar(15)
+  dt_resposta      DateTime?        @db.Timestamp(6)
+  CalendarioEvento CalendarioEvento @relation(fields: [id_evento], references: [id_evento], onDelete: Cascade, onUpdate: NoAction)
+  Usuario          Usuario          @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model Campanha {
+  id_campanha      String             @id @db.Uuid
+  titulo           String             @db.VarChar(100)
+  descricao        String?
+  dt_criacao       DateTime           @default(now()) @db.Timestamp(6)
+  Alianca          Alianca[]
+  CalendarioEvento CalendarioEvento[]
+  Conceito         Conceito[]
+  Criatura         Criatura[]
+  Deus             Deus[]
+  DocumentoExterno DocumentoExterno[]
+  HistoricoIA      HistoricoIA[]
+  Item             Item[]
+  Local            Local[]
+  MembroCampanha   MembroCampanha[]
+  Nota             Nota[]
+  Personagem       Personagem[]
+  Sessao           Sessao[]
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Conceito {
+  id_conceito String   @id @db.Uuid
+  id_campanha String   @db.Uuid
+  nome        String   @db.VarChar(100)
+  categoria   String?  @db.VarChar(60)
+  descricao   String?
+  Campanha    Campanha @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Criatura {
+  id_criatura String   @id @db.Uuid
+  id_campanha String   @db.Uuid
+  nome        String   @db.VarChar(100)
+  tipo        String?  @db.VarChar(60)
+  descricao   String?
+  Campanha    Campanha @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model Deus {
+  id_deus     String   @id @db.Uuid
+  id_campanha String   @db.Uuid
+  nome        String   @db.VarChar(100)
+  dominio     String?  @db.VarChar(100)
+  descricao   String?
+  Campanha    Campanha @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model DocumentoExterno {
+  id_documento String   @id @db.Uuid
+  id_campanha  String   @db.Uuid
+  nome         String   @db.VarChar(150)
+  tipo         String   @db.VarChar(10)
+  conteudo     String
+  vector       String?
+  dt_upload    DateTime @default(now()) @db.Timestamp(6)
+  Campanha     Campanha @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model HistoricoIA {
+  id_consulta String   @id @db.Uuid
+  id_campanha String   @db.Uuid
+  id_usuario  String   @db.Uuid
+  pergunta    String
+  resposta    String
+  tipo        String   @db.VarChar(15)
+  dt_consulta DateTime @default(now()) @db.Timestamp(6)
+  Campanha    Campanha @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+  Usuario     Usuario  @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Item {
+  id_item     String      @id @db.Uuid
+  id_campanha String      @db.Uuid
+  nome        String      @db.VarChar(100)
+  descricao   String?
+  raridade    String?     @default("comum") @db.VarChar(20)
+  Campanha    Campanha    @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+  ItemPosse   ItemPosse[]
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model ItemPosse {
+  id_item_posse String   @id @db.Uuid
+  id_item       String   @db.Uuid
+  dono_tipo     String   @db.VarChar(20)
+  dono_id       String   @db.Uuid
+  dt_posse      DateTime @default(now()) @db.Timestamp(6)
+  Item          Item     @relation(fields: [id_item], references: [id_item], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Local {
+  id_local    String   @id @db.Uuid
+  id_campanha String   @db.Uuid
+  nome        String   @db.VarChar(100)
+  tipo        String?  @db.VarChar(50)
+  descricao   String?
+  Campanha    Campanha @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model MembroCampanha {
+  id_membro   String   @id @db.Uuid
+  id_campanha String   @db.Uuid
+  id_usuario  String   @db.Uuid
+  role        String   @default("jogador") @db.VarChar(10)
+  status      String   @default("pendente") @db.VarChar(15)
+  dt_entrada  DateTime @default(now()) @db.Timestamp(6)
+  Campanha    Campanha @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+  Usuario     Usuario  @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Nota {
+  id_nota        String         @id @db.Uuid
+  id_campanha    String         @db.Uuid
+  titulo         String         @db.VarChar(100)
+  corpo          String
+  categoria      String         @db.VarChar(20)
+  visibilidade   String         @default("mestre") @db.VarChar(10)
+  dt_criacao     DateTime       @default(now()) @db.Timestamp(6)
+  dt_atualizacao DateTime?      @db.Timestamp(6)
+  Campanha       Campanha       @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+  NoteEmbedding  NoteEmbedding?
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model NoteEmbedding {
+  id_embedding String   @id @db.Uuid
+  id_nota      String   @unique @db.Uuid
+  vector       String
+  dt_criacao   DateTime @default(now()) @db.Timestamp(6)
+  Nota         Nota     @relation(fields: [id_nota], references: [id_nota], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Personagem {
+  id_personagem String   @id @db.Uuid
+  id_campanha   String   @db.Uuid
+  id_alianca    String?  @db.Uuid
+  nome          String   @db.VarChar(100)
+  tipo          String   @default("npc") @db.VarChar(10)
+  descricao     String?
+  Alianca       Alianca? @relation(fields: [id_alianca], references: [id_alianca], onDelete: NoAction, onUpdate: NoAction)
+  Campanha      Campanha @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Sessao {
+  id_sessao   String    @id @db.Uuid
+  id_campanha String    @db.Uuid
+  titulo      String?   @db.VarChar(100)
+  resumo      String?
+  status      String    @default("planejada") @db.VarChar(20)
+  dt_sessao   DateTime? @db.Timestamp(6)
+  Campanha    Campanha  @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model Usuario {
+  id_usuario     String           @id @db.Uuid
+  nome_usuario   String           @db.VarChar(80)
+  email_usuario  String           @unique @db.VarChar(120)
+  senha_usuario  String           @db.VarChar(255)
+  foto_perfil    String?          @db.VarChar(255)
+  dt_criacao     DateTime         @default(now()) @db.Timestamp(6)
+  CalendarioRsvp CalendarioRsvp[]
+  HistoricoIA    HistoricoIA[]
+  MembroCampanha MembroCampanha[]
 }
