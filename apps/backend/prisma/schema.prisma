@@ -202,7 +202,7 @@ model Sessao {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Usuario {
-  id_usuario     String           @id @db.Uuid
+  id_usuario     String           @id @default(uuid()) @db.Uuid
   nome_usuario   String           @db.VarChar(80)
   email_usuario  String           @unique @db.VarChar(120)
   senha_usuario  String           @db.VarChar(255)
