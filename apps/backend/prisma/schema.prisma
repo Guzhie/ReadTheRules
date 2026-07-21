@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Alianca {
-  id_alianca  String       @id @db.Uuid
+  id_alianca  String  @id @default(uuid()) @db.Uuid
   id_campanha String       @db.Uuid
   nome        String       @db.VarChar(100)
   descricao   String?
@@ -17,7 +17,7 @@ model Alianca {
 }
 
 model CalendarioEvento {
-  id_evento      String           @id @db.Uuid
+  id_evento   String  @id @default(uuid()) @db.Uuid
   id_campanha    String           @db.Uuid
   titulo         String           @db.VarChar(100)
   dt_evento      DateTime         @db.Timestamp(6)
@@ -28,7 +28,7 @@ model CalendarioEvento {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model CalendarioRsvp {
-  id_rsvp          String           @id @db.Uuid
+  id_rsvp     String  @id @default(uuid()) @db.Uuid
   id_evento        String           @db.Uuid
   id_usuario       String           @db.Uuid
   status           String           @default("pendente") @db.VarChar(15)
@@ -38,7 +38,7 @@ model CalendarioRsvp {
 }
 
 model Campanha {
-  id_campanha      String             @id @db.Uuid
+  id_campanha String  @id @default(uuid()) @db.Uuid
   titulo           String             @db.VarChar(100)
   descricao        String?
   dt_criacao       DateTime           @default(now()) @db.Timestamp(6)
@@ -59,7 +59,7 @@ model Campanha {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Conceito {
-  id_conceito String   @id @db.Uuid
+  id_conceito String  @id @default(uuid()) @db.Uuid
   id_campanha String   @db.Uuid
   nome        String   @db.VarChar(100)
   categoria   String?  @db.VarChar(60)
@@ -69,7 +69,7 @@ model Conceito {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Criatura {
-  id_criatura String   @id @db.Uuid
+  id_criatura String  @id @default(uuid()) @db.Uuid
   id_campanha String   @db.Uuid
   nome        String   @db.VarChar(100)
   tipo        String?  @db.VarChar(60)
@@ -78,7 +78,7 @@ model Criatura {
 }
 
 model Deus {
-  id_deus     String   @id @db.Uuid
+  id_deus     String  @id @default(uuid()) @db.Uuid
   id_campanha String   @db.Uuid
   nome        String   @db.VarChar(100)
   dominio     String?  @db.VarChar(100)
@@ -88,7 +88,7 @@ model Deus {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model DocumentoExterno {
-  id_documento String   @id @db.Uuid
+  id_documento String @id @default(uuid()) @db.Uuid
   id_campanha  String   @db.Uuid
   nome         String   @db.VarChar(150)
   tipo         String   @db.VarChar(10)
@@ -100,7 +100,7 @@ model DocumentoExterno {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model HistoricoIA {
-  id_consulta String   @id @db.Uuid
+  id_consulta String  @id @default(uuid()) @db.Uuid
   id_campanha String   @db.Uuid
   id_usuario  String   @db.Uuid
   pergunta    String
@@ -113,7 +113,7 @@ model HistoricoIA {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Item {
-  id_item     String      @id @db.Uuid
+  id_item     String  @id @default(uuid()) @db.Uuid
   id_campanha String      @db.Uuid
   nome        String      @db.VarChar(100)
   descricao   String?
@@ -124,7 +124,7 @@ model Item {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model ItemPosse {
-  id_item_posse String   @id @db.Uuid
+  id_item_posse String @id @default(uuid()) @db.Uuid
   id_item       String   @db.Uuid
   dono_tipo     String   @db.VarChar(20)
   dono_id       String   @db.Uuid
@@ -134,7 +134,7 @@ model ItemPosse {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Local {
-  id_local    String   @id @db.Uuid
+  id_local    String  @id @default(uuid()) @db.Uuid
   id_campanha String   @db.Uuid
   nome        String   @db.VarChar(100)
   tipo        String?  @db.VarChar(50)
@@ -144,7 +144,7 @@ model Local {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model MembroCampanha {
-  id_membro   String   @id @db.Uuid
+  id_membro   String  @id @default(uuid()) @db.Uuid
   id_campanha String   @db.Uuid
   id_usuario  String   @db.Uuid
   role        String   @default("jogador") @db.VarChar(10)
@@ -156,7 +156,7 @@ model MembroCampanha {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Nota {
-  id_nota        String         @id @db.Uuid
+  id_nota     String  @id @default(uuid()) @db.Uuid
   id_campanha    String         @db.Uuid
   titulo         String         @db.VarChar(100)
   corpo          String
@@ -170,7 +170,7 @@ model Nota {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model NoteEmbedding {
-  id_embedding String   @id @db.Uuid
+  id_embedding String @id @default(uuid()) @db.Uuid
   id_nota      String   @unique @db.Uuid
   vector       String
   dt_criacao   DateTime @default(now()) @db.Timestamp(6)
@@ -179,7 +179,7 @@ model NoteEmbedding {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Personagem {
-  id_personagem String   @id @db.Uuid
+  id_personagem String @id @default(uuid()) @db.Uuid
   id_campanha   String   @db.Uuid
   id_alianca    String?  @db.Uuid
   nome          String   @db.VarChar(100)
@@ -202,7 +202,7 @@ model Sessao {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Usuario {
-  id_usuario     String           @id @default(uuid()) @db.Uuid
+  id_usuario     String  @id @default(uuid()) @db.Uuid  
   nome_usuario   String           @db.VarChar(80)
   email_usuario  String           @unique @db.VarChar(120)
   senha_usuario  String           @db.VarChar(255)

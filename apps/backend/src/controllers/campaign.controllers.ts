@@ -1,0 +1,55 @@
+import type { Request, Response } from "express";
+import { createCampanha, deleteCampanha, getCampanhaById, listCampanha, updateCampanha } from "../services/campaign.services.js";
+import prisma from "../utils/prisma.js";
+
+export const createCampanhaController = async (req: Request, res: Response) => {
+    try {
+        const { titulo, descricao } = req.body
+        const id_usuario = req.user.id
+        const campanha = await createCampanha(titulo, descricao, id_usuario);
+        res.status(201).json({ campanha });
+    } catch (error: any) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+export const listCampanhaController = async(req: Request, res: Response) => {
+    try {
+        const id_usuario = req.user.id
+        const membro = await listCampanha(id_usuario)
+        res.status(200).json({ membro })
+    } catch (error:any) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+export const getCampanhaByIdController = async(req: Request, res: Response) => {
+    try {
+        const { id_campanha } = req.params as {id_campanha:  string};
+        const campanha = await getCampanhaById(id_campanha)
+        res.status(200).json({campanha})
+    } catch (error:any) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+export const updateCampanhaController = async (req: Request, res: Response) => {
+    try {
+        const { id_campanha } = req.params as {id_campanha:  string};
+        const { titulo, descricao } = req.body
+        const campanha = await updateCampanha(id_campanha, titulo, descricao)
+        res.status(200).json({campanha})
+    } catch (error:any) {
+        res.status(400).json({ message: error.message });
+    }
+}
+
+export const deleteCampanhaController = async(req: Request, res: Response) => {
+    try {
+        const { id_campanha } = req.params as {id_campanha:  string};
+        const campanha = await deleteCampanha(id_campanha);
+        res.status(204).send()
+    } catch (error:any) {
+        res.status(400).json({ message: error.message });
+    }
+}
