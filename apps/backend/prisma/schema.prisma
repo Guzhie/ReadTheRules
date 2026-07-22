@@ -144,7 +144,7 @@ model Local {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model MembroCampanha {
-  id_membro   String  @id @default(uuid()) @db.Uuid
+  id_membro   String   @id @default(uuid()) @db.Uuid
   id_campanha String   @db.Uuid
   id_usuario  String   @db.Uuid
   role        String   @default("jogador") @db.VarChar(10)
@@ -152,6 +152,8 @@ model MembroCampanha {
   dt_entrada  DateTime @default(now()) @db.Timestamp(6)
   Campanha    Campanha @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
   Usuario     Usuario  @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([id_campanha, id_usuario])
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
