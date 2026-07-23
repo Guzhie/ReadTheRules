@@ -167,16 +167,17 @@ model Nota {
   dt_criacao     DateTime       @default(now()) @db.Timestamp(6)
   dt_atualizacao DateTime?      @db.Timestamp(6)
   Campanha       Campanha       @relation(fields: [id_campanha], references: [id_campanha], onDelete: Cascade, onUpdate: NoAction)
-  NoteEmbedding  NoteEmbedding?
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
-model NoteEmbedding {
-  id_embedding String @id @default(uuid()) @db.Uuid
-  id_nota      String   @unique @db.Uuid
-  vector       String
-  dt_criacao   DateTime @default(now()) @db.Timestamp(6)
-  Nota         Nota     @relation(fields: [id_nota], references: [id_nota], onDelete: Cascade, onUpdate: NoAction)
+model Embedding {
+  id_embedding  String   @id @default(uuid()) @db.Uuid
+  entidade_tipo String   @db.VarChar(20)
+  entidade_id   String   @db.Uuid
+  vector        String
+  dt_criacao    DateTime @default(now()) @db.Timestamp(6)
+
+  @@index([entidade_tipo, entidade_id])
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
