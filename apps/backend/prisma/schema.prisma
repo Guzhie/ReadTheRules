@@ -193,7 +193,7 @@ model Personagem {
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 model Sessao {
-  id_sessao   String    @id @db.Uuid
+  id_sessao   String  @id @default(uuid()) @db.Uuid 
   id_campanha String    @db.Uuid
   titulo      String?   @db.VarChar(100)
   resumo      String?
