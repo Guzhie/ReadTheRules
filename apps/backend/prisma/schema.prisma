@@ -35,6 +35,7 @@ model CalendarioRsvp {
   dt_resposta      DateTime?        @db.Timestamp(6)
   CalendarioEvento CalendarioEvento @relation(fields: [id_evento], references: [id_evento], onDelete: Cascade, onUpdate: NoAction)
   Usuario          Usuario          @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
+  @@unique([id_evento, id_usuario])
 }
 
 model Campanha {

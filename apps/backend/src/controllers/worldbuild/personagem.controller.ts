@@ -57,7 +57,7 @@ export const deletePersonagemController = async (req: Request, res: Response) =>
     try {
         const { id_personagem } = req.params as { id_personagem: string };
         const personagem = await deletePersonagem(id_personagem);
-        res.status(204).json({ });
+        res.status(204).send();
     } catch (error:any) {
         res.status(400).json({ message: error.message });
     }

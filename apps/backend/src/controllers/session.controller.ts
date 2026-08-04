@@ -47,7 +47,7 @@ export const deleteSessaoController = async (req: Request, res: Response) => {
     try {
         const { id_sessao } = req.params as { id_sessao: string };
         const sessao = await deleteSessao(id_sessao);
-        res.status(204).json({ });
+        res.status(204).send();
     } catch (error:any) {
         res.status(400).json({ message: error.message });
     }

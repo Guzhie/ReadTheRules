@@ -7,6 +7,9 @@ import sessionRouter from "./routes/session.routes.js"
 import notaRouter from "./routes/note.routes.js"
 import personagemRouter from "./routes/worldbuild/personagem.routes.js"
 import itemRouter from "./routes/worldbuild/item.routes.js"
+import calendarioEventoRouter from "./routes/calendario/calendarioevento.routes.js"
+import calendarioRsvpRouter from "./routes/calendario/calendariorsvp.routes.js";
+
 
 
 const app = express();
@@ -21,5 +24,8 @@ app.use("/campanhas/:id_campanha/sessoes", sessionRouter);
 app.use("/campanhas/:id_campanha/notas", notaRouter);
 app.use("/campanhas/:id_campanha/personagens", personagemRouter);
 app.use("/campanhas/:id_campanha/itens", itemRouter);
+app.use("/campanhas/:id_campanha/eventos", calendarioEventoRouter);
+app.use("/calendario", calendarioEventoRouter);
+app.use("/eventos", calendarioRsvpRouter);
 
 export default app;
