@@ -8,6 +8,7 @@ router.use(authenticate);
 router.post('/', createAliancaController);
 router.get('/', listarAliancaController);
 router.get('/:id_alianca', getAliancaByIdController);
+router.get('/nome/:nome', getAliancaByIdController);
 router.patch('/:id_alianca', updateAliancaController);
 router.delete('/:id_alianca', deleteAliancaController);
 
