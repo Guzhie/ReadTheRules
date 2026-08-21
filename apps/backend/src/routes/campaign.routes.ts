@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { authenticate } from "../middlewares/authenticate.js";
-import { createCampanhaController, listCampanhaController, getCampanhaByIdController, updateCampanhaController, deleteCampanhaController, listarMembrosController, removerMembroController} from "../controllers/campaign.controllers.js";
+import { createCampanhaController, listCampanhaController, getCampanhaByIdController, updateCampanhaController, deleteCampanhaController, listarMembrosController, removerMembroController} from "../controllers/campaign.controller.js";
 
 const router = Router();
 

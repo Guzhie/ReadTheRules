@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { aceitarConvite, convidarPlayer, listarConvitesJogador, listarConvitesMestre, recusarConvite } from "../services/member.services.js";
+import { aceitarConvite, convidarPlayer, listarConvitesJogador, listarConvitesMestre, recusarConvite } from "../services/member.service.js";
 
 export const convidarPlayerController = async(req: Request, res: Response) => {
     try {

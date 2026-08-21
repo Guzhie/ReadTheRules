@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { confirmarPresenca, listarRsvps, recusarPresenca } from "../../services/calendario/calendariorsvp.services.js";
+import { confirmarPresenca, listarRsvps, recusarPresenca } from "../../services/calendario/calendariorsvp.service.js";
 
 export const createRSVPController = async (req: Request, res: Response) => {
     try {

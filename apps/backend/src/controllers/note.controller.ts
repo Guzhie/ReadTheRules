@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { createNota, deleteNota, getNotaById, listNotas, updateNota } from "../services/note.services.js";
+import { createNota, deleteNota, getNotaById, listNotas, updateNota } from "../services/note.service.js";
 
 export const createNotaController = async (req: Request, res: Response) => {
     try {

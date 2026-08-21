@@ -6,8 +6,8 @@ import {
   listarMembros,
   listCampanha,
   updateCampanha,
-} from "../services/campaign.services.js";
-import { removerMembro } from "../services/member.services.js";
+} from "../services/campaign.service.js";
+import { removerMembro } from "../services/member.service.js";
 
 export const createCampanhaController = async (req: Request, res: Response) => {
   try {

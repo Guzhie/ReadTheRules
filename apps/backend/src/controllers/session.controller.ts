@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { criarSessao, deleteSessao, getSessaoById, listarSessoes, updateSessao } from "../services/session.services.js";
+import { criarSessao, deleteSessao, getSessaoById, listarSessoes, updateSessao } from "../services/session.service.js";
 
 export const createSessaoController = async (req: Request, res: Response) => {
     try {

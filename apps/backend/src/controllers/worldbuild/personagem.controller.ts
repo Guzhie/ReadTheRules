@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { criarPersonagem, deletePersonagem, getPersonagemById, getPersonagemByName, listarPersonagens, updatePersonagem } from "../../services/worldbuild/personagem.services.js";
+import { criarPersonagem, deletePersonagem, getPersonagemById, getPersonagemByName, listarPersonagens, updatePersonagem } from "../../services/worldbuild/personagem.service.js";
 
 export const createPersonagemController = async (req: Request, res: Response) => {
     try {
