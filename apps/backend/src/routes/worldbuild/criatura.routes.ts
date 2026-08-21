@@ -8,7 +8,7 @@ router.use(authenticate);
 router.post('/', createCriaturaController);
 router.get('/', listCriaturasController);
 router.get('/:id_criatura', getCriaturaByIdController);
-router.get('/:id_criatura', getCriaturaByNameController);
+router.get('/nome/:nome', getCriaturaByNameController);
 router.patch('/:id_criatura', updateCriaturaController);
 router.delete('/:id_criatura', deleteCriaturaController);
 

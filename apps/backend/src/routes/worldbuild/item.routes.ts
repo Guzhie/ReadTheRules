@@ -8,7 +8,7 @@ router.use(authenticate);
 router.post("/", createItemController);
 router.get("/", listItemController);
 router.get("/:id_item", getItemByIdController);
-router.get("/:id_item", getItemByNameController);
+router.get("/nome/:nome", getItemByNameController);
 router.patch("/:id_item", updateItemController);
 router.delete("/:id_item", deleteItemController);
 

@@ -1,17 +1,17 @@
-import prisma from '../../utils/prisma.js';
+import prisma from "../../utils/prisma.js";
 
 export const createDeus = async (
   id_campanha: string,
   nome: string,
-  descricao?: string,
   dominio?: string,
+  descricao?: string,
 ) => {
   const deus = await prisma.deus.create({
     data: {
       id_campanha,
       nome,
-      ...(descricao && { descricao }),
       ...(dominio && { dominio }),
+      ...(descricao && { descricao }),
     },
   });
   return deus;
@@ -61,4 +61,3 @@ export const deleteDeus = async (id_deus: string) => {
   });
   return deus;
 };
-
